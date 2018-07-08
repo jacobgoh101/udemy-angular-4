@@ -14,6 +14,46 @@
 
           Upon submitting the form, simply print the value to the console
       -->
+
+      <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Name:</label>
+          <input type="text" class="form-control" formControlName="name">
+          <div *ngIf="projectForm.get('name').touched && projectForm.get('name').invalid">
+            <p class="text-danger" *ngIf="projectForm.get('name').errors.required">
+              Name field is required.
+            </p>
+            <p class="text-danger" *ngIf="projectForm.get('name').errors.forbiddenName">
+              Please enter a valid Name.
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email address:</label>
+          <input type="email" class="form-control" formControlName="email">
+          <div *ngIf="projectForm.get('email').touched && projectForm.get('email').invalid">
+            <p class="text-danger" *ngIf="projectForm.get('email').errors.required">
+              Email field is required.
+            </p>
+            <p class="text-danger" *ngIf="projectForm.get('email').errors.email || projectForm.get('email').errors.forbiddenEmail">
+              Please enter a valid Email.
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Status:</label>
+          <select class="form-control" formControlName="status">
+            <option *ngFor="let option of statusOptions" [value]="option">{{option}}</option>
+          </select>
+        </div>
+        <div class="form-group text-right">
+          <input type="submit" value="Submit" class="btn btn-primary" [disabled]="!projectForm.valid">
+        </div>
+      </form>
+
+      123123
+      {{projectFormValues || json}}
+
     </div>
   </div>
 </div>
